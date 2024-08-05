@@ -1,9 +1,9 @@
-package main
+package config
 
 import (
 	"context"
-	"fmt"
 
+	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 
 	"google.golang.org/api/option"
@@ -11,6 +11,7 @@ import (
 
 type firebaseClient struct {
 	app *firebase.App
+	Fs  *firestore.Client
 }
 
 var Firebase *firebaseClient = new(firebaseClient)
@@ -22,9 +23,8 @@ func init() {
 	if err != nil {
 		panic("Error initializing app")
 	}
-
-}
-
-func main() {
-	fmt.Println(Firebase.app)
+	Firebase.Fs, err = Firebase.app.Firestore(context.Background())
+	if err != nil {
+		panic("Error creating firestore instance," + err.Error())
+	}
 }
