@@ -13,12 +13,12 @@ type firebaseClient struct {
 	app *firebase.App
 }
 
-var fb *firebaseClient = new(firebaseClient)
+var Firebase *firebaseClient = new(firebaseClient)
 
 func init() {
 	var err error
 	opt := option.WithCredentialsFile("../env/lab-manual-9dcc3-firebase-adminsdk-novaw-4b87b72bc0.json")
-	fb.app, err = firebase.NewApp(context.Background(), nil, opt)
+	Firebase.app, err = firebase.NewApp(context.Background(), nil, opt)
 	if err != nil {
 		panic("Error initializing app")
 	}
@@ -26,5 +26,5 @@ func init() {
 }
 
 func main() {
-	fmt.Println(fb.app)
+	fmt.Println(Firebase.app)
 }
