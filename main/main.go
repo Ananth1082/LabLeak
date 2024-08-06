@@ -18,7 +18,7 @@ func main() {
 
 	server := http.Server{
 		Addr:    ":8080",
-		Handler: middleware.Logging(router),
+		Handler: middleware.CheckAdmin(middleware.Logging(router)),
 	}
 	log.Println("Server started in port: ", 8080)
 	err := server.ListenAndServe()
