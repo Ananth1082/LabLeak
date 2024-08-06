@@ -41,13 +41,6 @@ func CreateManual(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid details"))
 		return
 	}
-	filename := header.Filename
-	fmt.Println("filename:", filename)
-	if filename[len(filename)-3:] != "txt" {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Invalid file"))
-		return
-	}
 	content := make([]byte, header.Size)
 	n, err := file.Read(content)
 	fmt.Println("size read:", n)
