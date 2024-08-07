@@ -41,13 +41,6 @@ func CreateManual(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid details"))
 		return
 	}
-	filename := header.Filename
-	fmt.Println("filename:", filename)
-	if filename[len(filename)-3:] != "txt" {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Invalid file"))
-		return
-	}
 	content := make([]byte, header.Size)
 	n, err := file.Read(content)
 	fmt.Println("size read:", n)
@@ -79,4 +72,52 @@ func DeleteManual(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Succefully deleted the content"))
+}
+
+func GetManuals(w http.ResponseWriter, r *http.Request) {
+	ctx := context.Background()
+	section := r.PathValue("section")
+	subject := r.PathValue("subject")
+	docs, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").DocumentRefs(ctx).GetAll()
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Invalid details"))
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("******List of manuals are******:\n"))
+	for idx, doc := range docs {
+		w.Write([]byte(fmt.Sprintf("%d. %s\n", idx+1, doc.ID)))
+	}
+}
+
+func GetSubjects(w http.ResponseWriter, r *http.Request) {
+	ctx := context.Background()
+	section := r.PathValue("section")
+	docs, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").DocumentRefs(ctx).GetAll()
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Invalid details"))
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("******List of subjects are:******\n"))
+	for idx, doc := range docs {
+		w.Write([]byte(fmt.Sprintf("%d. %s\n", idx+1, doc.ID)))
+	}
+}
+
+func GetSections(w http.ResponseWriter, r *http.Request) {
+	ctx := context.Background()
+	docs, err := config.Firebase.Fs.Collection("sections").DocumentRefs(ctx).GetAll()
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Invalid details"))
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("******List of sections:******\n"))
+	for idx, doc := range docs {
+		w.Write([]byte(fmt.Sprintf("%d. %s\n", idx+1, doc.ID)))
+	}
 }
