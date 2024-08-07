@@ -1,5 +1,5 @@
 # Studious Doodle
-Is a simple way to share lab work within class, with no logins and can be veiwed directly.<br>
+Is a simple way to share lab work within class, with no logins read and writes.<br>
 
 ## Motivation
 Since sharing lab codes via email or whatsapp is not convenient and requires phones (which is not allowed in our college labs). So I created a simple system where people can share lab codes inside the terminal (using curl) which makes the whole process faster and hastle-free. 
