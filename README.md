@@ -1,4 +1,4 @@
-# Studious Doodle
+# Lab Leak
 Is a simple way to share lab work within class, with no logins read and writes.<br>
 
 ## Motivation
