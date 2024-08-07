@@ -1,5 +1,5 @@
 # Studious Doodle
-Is a simple way to share lab work within class, with no logins and can be veiwed directly.
+Is a simple way to share lab work within class, with no logins and can be veiwed directly.<br>
 
 ## Motivation
 Since reading data should'nt require auth, I tried to create a system an admin a share data with a simple code which can be viewed by all directly. Which make reading data very quick.  
@@ -9,10 +9,10 @@ An admin can upload documents to the server and these documents can be access by
 
 ### Routes
 #### Admin Routes
-\tPOST `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` requires admin token to post manual which has to be provided in Authorization header (type 'Bearer') and also provide the file to be uploaded.
-\tDELETE  `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` requires admin token to delete manual which has to be provided in Authorization header (type 'Bearer').
+    POST `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` requires admin token to post manual which has to be provided in Authorization header (type 'Bearer') and also provide the file to be uploaded.<br>
+    DELETE  `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` requires admin token to delete manual which has to be provided in Authorization header (type 'Bearer').<br>
 #### User Routes
-\tGET `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` to access the given manual.
-\tGET `https://studious-doodle.onrender.com/<section>/<subject>` to get the list of manuals.
-\tGET `https://studious-doodle.onrender.com/<section>` to get the list of subjects.
-\tGET `https://studious-doodle.onrender.com` to get the list of sections.
+    GET `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` to access the given manual.<br>
+    GET `https://studious-doodle.onrender.com/<section>/<subject>` to get the list of manuals.<br>
+    GET `https://studious-doodle.onrender.com/<section>` to get the list of subjects.<br>
+    GET `https://studious-doodle.onrender.com` to get the list of sections.<br>
