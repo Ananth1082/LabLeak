@@ -12,7 +12,7 @@ An admin can upload documents to the server and these documents can be access by
  POST `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` requires admin token to post manual which has to be provided in Authorization header (type 'Bearer') and also provide the file to be uploaded.<br>
  DELETE  `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` requires admin token to delete manual which has to be provided in Authorization header (type 'Bearer').<br>
 #### User Routes
- GET `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` to access the given manual.<br>
- GET `https://studious-doodle.onrender.com/<section>/<subject>` to get the list of manuals.<br>
- GET `https://studious-doodle.onrender.com/<section>` to get the list of subjects.<br>
- GET `https://studious-doodle.onrender.com` to get the list of sections.<br>
+  GET `https://studious-doodle.onrender.com/<section>/<subject>/<manual>` to access the given manual.<br>
+  GET `https://studious-doodle.onrender.com/<section>/<subject>` to get the list of manuals.<br>
+  GET `https://studious-doodle.onrender.com/<section>` to get the list of subjects.<br>
+  GET `https://studious-doodle.onrender.com` to get the list of sections.<br>
