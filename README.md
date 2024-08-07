@@ -2,7 +2,7 @@
 Is a simple way to share lab work within class, with no logins and can be veiwed directly.<br>
 
 ## Motivation
-Since reading data should'nt require auth, I tried to create a system an admin a share data with a simple code which can be viewed by all directly. Which make reading data very quick.  
+Since sharing lab codes via email or whatsapp is not convenient and requires phones (which is not allowed in our college labs). So I created a simple system where people can share lab codes inside the terminal (using curl) which makes the whole process faster and hastle-free. 
 
 ## How to use
 An admin can upload documents to the server and these documents can be access by other student. But due to limitations of the free server by render, I created a special script in [https://studious-doodle.onrender.com/admin/scripts/session_script] which can be used to keep the server awake for longer times to decrease the response times. 
