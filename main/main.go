@@ -10,11 +10,17 @@ import (
 
 func main() {
 	router := http.NewServeMux()
-
+	//User routes
 	router.HandleFunc("GET /", handler.GetSections)
 	router.HandleFunc("GET /{section}", handler.GetSubjects)
 	router.HandleFunc("GET /{section}/{subject}", handler.GetManuals)
 	router.HandleFunc("GET /{section}/{subject}/{manual}", handler.GetManual)
+
+	//download routes
+	router.HandleFunc("GET /downloads/scripts", handler.DownloadScripts)
+	router.HandleFunc("GET /downloads/executables", handler.DownloadExes)
+
+	//protected routes
 	router.HandleFunc("POST /{section}/{subject}/{manual}", handler.CreateManual)
 	router.HandleFunc("DELETE /{section}/{subject}/{manual}", handler.DeleteManual)
 
