@@ -17,7 +17,7 @@ func main() {
 	router.HandleFunc("DELETE /{section}/{subject}/{manual}", handler.DeleteManual)
 
 	server := http.Server{
-		Addr:    ":8080",
+		Addr:    "0.0.0.0:8080",
 		Handler: middleware.CheckAdmin(middleware.Logging(router)),
 	}
 	log.Println("Server started in port: ", 8080)
