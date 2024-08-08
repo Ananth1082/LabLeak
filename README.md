@@ -16,3 +16,9 @@ An admin can upload documents to the server and these documents can be access by
   GET `https://studious-doodle.onrender.com/<section>/<subject>` to get the list of manuals.<br>
   GET `https://studious-doodle.onrender.com/<section>` to get the list of subjects.<br>
   GET `https://studious-doodle.onrender.com` to get the list of sections.<br>
+
+
+## Features List
+- Enable folder uploading system.
+- Scripts to unzip and place folders in required place.
+- 'Get' directly should send zip folder of the code.
