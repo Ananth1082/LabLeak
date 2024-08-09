@@ -5,6 +5,12 @@ go 1.22.3
 require firebase.google.com/go v3.13.0+incompatible
 
 require (
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/spf13/cobra v1.8.1 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
+)
+
+require (
 	cloud.google.com/go v0.115.0 // indirect
 	cloud.google.com/go/auth v0.7.3 // indirect
 	cloud.google.com/go/auth/oauth2adapt v0.2.3 // indirect
