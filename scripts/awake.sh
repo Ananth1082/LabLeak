@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # URL to ping
-URL="https://studious-doodle.onrender.com"
+URL="https://lableak.onrender.com"
 
 while true
 do

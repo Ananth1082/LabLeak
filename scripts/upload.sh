@@ -2,7 +2,7 @@
 
 # Check if the correct number of arguments are provided
 if [ "$#" -ne 3 ]; then
-    echo "Usage: $0 "https://studious-doodle.onrender.com/\<section\>/\<subject\>/\<lab_program\>" <file_path> <auth_token>"
+    echo "Usage: $0 "https://lableak.onrender.com/\<section\>/\<subject\>/\<lab_program\>" <file_path> <auth_token>"
     exit 1
 fi
 
