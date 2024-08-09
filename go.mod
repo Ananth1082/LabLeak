@@ -1,4 +1,4 @@
-module github.com/Ananth1082/Lab_Manual
+module github.com/Ananth1082/LabLeak
 
 go 1.22.3
 

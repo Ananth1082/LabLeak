@@ -4,7 +4,7 @@ import (
 	"archive/zip"
 	"net/http"
 
-	"github.com/Ananth1082/Lab_Manual/utils"
+	"github.com/Ananth1082/LabLeak/utils"
 )
 
 func DownloadScripts(w http.ResponseWriter, r *http.Request) {
