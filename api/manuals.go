@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Ananth1082/Lab_Manual/config"
+	"github.com/Ananth1082/LabLeak/config"
 )
 
 func GetManual(w http.ResponseWriter, r *http.Request) {

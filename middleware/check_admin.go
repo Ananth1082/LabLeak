@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Ananth1082/Lab_Manual/config"
+	"github.com/Ananth1082/LabLeak/config"
 )
 
 func CheckAdmin(next http.Handler) http.Handler {
