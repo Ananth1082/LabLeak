@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 
+	"cloud.google.com/go/firestore"
 	"github.com/Ananth1082/LabLeak/config"
 )
 
@@ -54,4 +55,10 @@ func DeleteSection(section string) error {
 		return err
 	}
 	return nil
+}
+
+func UpdateManual(section, subject, manual, newContent string) error {
+	ctx := context.Background()
+	_, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Update(ctx, []firestore.Update{{Path: "content", Value: map[string]string{"content": newContent}}})
+	return err
 }

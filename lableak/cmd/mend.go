@@ -12,9 +12,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// sendCmd represents the send command
-var sendCmd = &cobra.Command{
-	Use:   "send",
+// mendCmd represents the mend command
+var mendCmd = &cobra.Command{
+	Use:   "mend",
 	Short: "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
@@ -22,10 +22,10 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: sendFile,
+	Run: mendManual,
 }
 
-func sendFile(cmd *cobra.Command, args []string) {
+func mendManual(cmd *cobra.Command, args []string) {
 	if len(args) != 1 {
 		fmt.Println("Enter arguments in the right format")
 		cmd.Help()
@@ -53,29 +53,26 @@ func sendFile(cmd *cobra.Command, args []string) {
 		content = string(fbytes)
 	} else if textFlag := cmd.Flag("text").Value.String(); textFlag != "" {
 		content = textFlag
-	} else {
-		fmt.Println("Enter content for the manual")
-		return
 	}
 
-	err := repository.CreateManual(resource[0], resource[1], resource[2], content)
+	err := repository.UpdateManual(resource[0], resource[1], resource[2], content)
 	if err != nil {
-		fmt.Println("Error creating manual")
+		fmt.Println("Error mending manual", err.Error())
 	}
 }
 
 func init() {
-	rootCmd.AddCommand(sendCmd)
+	rootCmd.AddCommand(mendCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// sendCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// mendCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	sendCmd.Flags().StringP("password", "p", "", "password for admin access")
-	sendCmd.Flags().StringP("file", "f", "", "File path of the file to send")
-	sendCmd.Flags().StringP("text", "t", "", "Text content to send")
+	mendCmd.Flags().StringP("password", "p", "", "password for admin access")
+	mendCmd.Flags().StringP("file", "f", "", "file path to get new content")
+	mendCmd.Flags().StringP("text", "t", "", "text content to replace the old one")
 }
