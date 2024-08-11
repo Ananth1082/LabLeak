@@ -37,3 +37,21 @@ func DeleteManual(section, subject, manual string) error {
 	}
 	return nil
 }
+
+func DeleteSubject(section, subject string) error {
+	ctx := context.Background()
+	_, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Delete(ctx)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func DeleteSection(section string) error {
+	ctx := context.Background()
+	_, err := config.Firebase.Fs.Collection("sections").Doc(section).Delete(ctx)
+	if err != nil {
+		return err
+	}
+	return nil
+}
