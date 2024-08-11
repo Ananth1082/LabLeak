@@ -41,21 +41,21 @@ func killResources(cmd *cobra.Command, args []string) {
 			fmt.Println("Invalid resource path: Path doesn't exist")
 			return
 		}
-		fmt.Println("Section deleted succeffuly")
+		fmt.Println("Section deleted successfuly")
 	} else if len(resource) == 2 {
 		err := repository.DeleteSubject(resource[0], resource[1])
 		if err != nil {
 			fmt.Println("Invalid resource path: Path doesn't exist")
 			return
 		}
-		fmt.Println("Subject deleted succeffuly")
+		fmt.Println("Subject deleted successfuly")
 	} else if len(resource) == 3 {
 		err := repository.DeleteManual(resource[0], resource[1], resource[2])
 		if err != nil {
 			fmt.Println("Invalid resource path: Path doesn't exist")
 			return
 		}
-		fmt.Println("Manual deleted succeffuly")
+		fmt.Println("Manual deleted successfuly")
 	} else {
 		fmt.Println("Invalid resource path ")
 	}
