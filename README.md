@@ -22,3 +22,6 @@ An admin can upload documents to the server and these documents can be access by
 - Enable folder uploading system.
 - Scripts to unzip and place folders in required place.
 - 'Get' directly should send zip folder of the code.
+
+### Lab Leak CLI
+![Screenshot 2024-08-11 171407](https://github.com/user-attachments/assets/c20a75f0-8402-418b-9c74-5e99ec1f9f73)
