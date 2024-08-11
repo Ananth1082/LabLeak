@@ -27,7 +27,7 @@ func ListSubjects(section string) ([]*firestore.DocumentRef, error) {
 
 func ListManuals(section, subject string) ([]*firestore.DocumentRef, error) {
 	ctx := context.Background()
-	docs, err := config.Firebase.Fs.Collection("sections").DocumentRefs(ctx).GetAll()
+	docs, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").DocumentRefs(ctx).GetAll()
 	if err != nil {
 		return nil, err
 	}
