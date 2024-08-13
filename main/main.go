@@ -11,6 +11,7 @@ import (
 func main() {
 	router := http.NewServeMux()
 	//User routes
+	router.HandleFunc("GET /ping", handler.Ping)
 	router.HandleFunc("GET /", handler.GetSections)
 	router.HandleFunc("GET /{section}", handler.GetSubjects)
 	router.HandleFunc("GET /{section}/{subject}", handler.GetManuals)

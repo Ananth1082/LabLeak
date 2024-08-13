@@ -1,31 +1,26 @@
 package handler
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 
-	"github.com/Ananth1082/LabLeak/config"
+	"github.com/Ananth1082/LabLeak/repository"
 )
 
 func GetManual(w http.ResponseWriter, r *http.Request) {
-	ctx := context.Background()
 	section := r.PathValue("section")
 	subject := r.PathValue("subject")
 	manual := r.PathValue("manual")
-	docSnap, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Get(ctx)
+	manualContent, err := repository.GetManual(section, subject, manual)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Invalid details"))
-		return
+		w.Write([]byte("Invalid details.."))
 	}
-	data, _ := docSnap.DataAt("content")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(data.(string)))
+	w.Write([]byte(manualContent))
 }
 
 func CreateManual(w http.ResponseWriter, r *http.Request) {
-	ctx := context.Background()
 	section := r.PathValue("section")
 	subject := r.PathValue("subject")
 	manual := r.PathValue("manual")
@@ -49,7 +44,7 @@ func CreateManual(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid details" + err.Error()))
 		return
 	}
-	_, err = config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Create(ctx, map[string]string{"content": string(content)})
+	err = repository.CreateManual(section, subject, manual, string(content))
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid details" + err.Error()))
@@ -60,11 +55,10 @@ func CreateManual(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteManual(w http.ResponseWriter, r *http.Request) {
-	ctx := context.Background()
 	section := r.PathValue("section")
 	subject := r.PathValue("subject")
 	manual := r.PathValue("manual")
-	_, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Delete(ctx)
+	err := repository.DeleteManual(section, subject, manual)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid details"))
@@ -75,49 +69,49 @@ func DeleteManual(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetManuals(w http.ResponseWriter, r *http.Request) {
-	ctx := context.Background()
 	section := r.PathValue("section")
 	subject := r.PathValue("subject")
-	docs, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").DocumentRefs(ctx).GetAll()
+	docs, err := repository.ListManuals(section, subject)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid details"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("******List of manuals are******:\n"))
+	w.Write([]byte("******List of manuals are******:<br>"))
 	for idx, doc := range docs {
-		w.Write([]byte(fmt.Sprintf("%d. %s\n", idx+1, doc.ID)))
+		w.Write([]byte(fmt.Sprintf("%d. <a href=http://localhost:8080/%s/%s/%s>%s</a><br>", idx+1, section, subject, doc.ID, doc.ID)))
 	}
+	w.Write([]byte("*********************************<br>"))
 }
 
 func GetSubjects(w http.ResponseWriter, r *http.Request) {
-	ctx := context.Background()
 	section := r.PathValue("section")
-	docs, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").DocumentRefs(ctx).GetAll()
+	docs, err := repository.ListSubjects(section)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid details"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("******List of subjects are:******\n"))
+	w.Write([]byte("******List of subjects are:******<br>"))
 	for idx, doc := range docs {
-		w.Write([]byte(fmt.Sprintf("%d. %s\n", idx+1, doc.ID)))
+		w.Write([]byte(fmt.Sprintf("%d. <a href=http://localhost:8080/%s/%s>%s</a><br>", idx+1, section, doc.ID, doc.ID)))
 	}
+	w.Write([]byte("*********************************<br>"))
 }
 
 func GetSections(w http.ResponseWriter, r *http.Request) {
-	ctx := context.Background()
-	docs, err := config.Firebase.Fs.Collection("sections").DocumentRefs(ctx).GetAll()
+	docs, err := repository.ListSections()
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid details"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("******List of sections:******\n"))
+	w.Write([]byte("******List of sections:******<br>"))
 	for idx, doc := range docs {
-		w.Write([]byte(fmt.Sprintf("%d. %s\n", idx+1, doc.ID)))
+		w.Write([]byte(fmt.Sprintf("%d. <a href=http://localhost:8080/%s>%s</a><br>", idx+1, doc.ID, doc.ID)))
 	}
+	w.Write([]byte("*********************************<br>"))
 }
