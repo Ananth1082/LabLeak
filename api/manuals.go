@@ -78,11 +78,11 @@ func GetManuals(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("******List of manuals are******:\n"))
+	w.Write([]byte("******List of manuals are******:<br>"))
 	for idx, doc := range docs {
-		w.Write([]byte(fmt.Sprintf("%d. %s\n", idx+1, doc.ID)))
+		w.Write([]byte(fmt.Sprintf("%d. <a href=http://localhost:8080/%s/%s/%s>%s</a><br>", idx+1, section, subject, doc.ID, doc.ID)))
 	}
-	w.Write([]byte("*********************************\n"))
+	w.Write([]byte("*********************************<br>"))
 }
 
 func GetSubjects(w http.ResponseWriter, r *http.Request) {
@@ -94,11 +94,11 @@ func GetSubjects(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("******List of subjects are:******\n"))
+	w.Write([]byte("******List of subjects are:******<br>"))
 	for idx, doc := range docs {
-		w.Write([]byte(fmt.Sprintf("%d. %s\n", idx+1, doc.ID)))
+		w.Write([]byte(fmt.Sprintf("%d. <a href=http://localhost:8080/%s/%s>%s</a><br>", idx+1, section, doc.ID, doc.ID)))
 	}
-	w.Write([]byte("*********************************\n"))
+	w.Write([]byte("*********************************<br>"))
 }
 
 func GetSections(w http.ResponseWriter, r *http.Request) {
@@ -109,9 +109,9 @@ func GetSections(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("******List of sections:******\n"))
+	w.Write([]byte("******List of sections:******<br>"))
 	for idx, doc := range docs {
-		w.Write([]byte(fmt.Sprintf("%d. %s\n", idx+1, doc.ID)))
+		w.Write([]byte(fmt.Sprintf("%d. <a href=http://localhost:8080/%s>%s</a><br>", idx+1, doc.ID, doc.ID)))
 	}
-	w.Write([]byte("*********************************\n"))
+	w.Write([]byte("*********************************<br>"))
 }
