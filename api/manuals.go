@@ -77,10 +77,11 @@ func GetManuals(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid details"))
 		return
 	}
+	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("******List of manuals are******:<br>"))
+	w.Write([]byte("*********List of manuals **********<br>"))
 	for idx, doc := range docs {
-		w.Write([]byte(fmt.Sprintf("%d. <a href=http://localhost:8080/%s/%s/%s>%s</a><br>", idx+1, section, subject, doc.ID, doc.ID)))
+		w.Write([]byte(fmt.Sprintf("%d. <a href=http://lableak.onrender.com/%s/%s/%s>%s</a><br>", idx+1, section, subject, doc.ID, doc.ID)))
 	}
 	w.Write([]byte("*********************************<br>"))
 }
@@ -93,10 +94,11 @@ func GetSubjects(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid details"))
 		return
 	}
+	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("******List of subjects are:******<br>"))
+	w.Write([]byte("**********List of subjects **********<br>"))
 	for idx, doc := range docs {
-		w.Write([]byte(fmt.Sprintf("%d. <a href=http://localhost:8080/%s/%s>%s</a><br>", idx+1, section, doc.ID, doc.ID)))
+		w.Write([]byte(fmt.Sprintf("%d. <a href=http://lableak.onrender.com/%s/%s>%s</a><br>", idx+1, section, doc.ID, doc.ID)))
 	}
 	w.Write([]byte("*********************************<br>"))
 }
@@ -108,10 +110,12 @@ func GetSections(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid details"))
 		return
 	}
+	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("******List of sections:******<br>"))
+
+	w.Write([]byte("**********List of manuals **********<br>"))
 	for idx, doc := range docs {
-		w.Write([]byte(fmt.Sprintf("%d. <a href=http://localhost:8080/%s>%s</a><br>", idx+1, doc.ID, doc.ID)))
+		w.Write([]byte(fmt.Sprintf("%d. <a href=http://lableak.onrender.com/%s>%s</a><br>", idx+1, doc.ID, doc.ID)))
 	}
 	w.Write([]byte("*********************************<br>"))
 }
