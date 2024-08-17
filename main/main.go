@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	handler "github.com/Ananth1082/LabLeak/api"
+	handler "github.com/Ananth1082/LabLeak/handler"
 	middleware "github.com/Ananth1082/LabLeak/middleware"
 )
 
