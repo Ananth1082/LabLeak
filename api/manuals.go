@@ -58,12 +58,14 @@ func DeleteManual(w http.ResponseWriter, r *http.Request) {
 	section := r.PathValue("section")
 	subject := r.PathValue("subject")
 	manual := r.PathValue("manual")
+
 	err := repository.DeleteManual(section, subject, manual)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid details"))
 		return
 	}
+
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Succefully deleted the content"))
 }
