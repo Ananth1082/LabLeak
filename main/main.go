@@ -10,6 +10,11 @@ import (
 
 func main() {
 	router := http.NewServeMux()
+
+	//upload routes
+	router.HandleFunc("POST /{section}/uploader", handler.UploadPhotos)
+	router.HandleFunc("GET /uploader/{photoID}", handler.GetPhoto)
+
 	//User routes
 	router.HandleFunc("GET /ping", handler.Ping)
 	router.HandleFunc("GET /", handler.GetSections)
