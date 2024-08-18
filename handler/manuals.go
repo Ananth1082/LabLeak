@@ -89,7 +89,6 @@ func GetManuals(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetSubjects(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Hello")
 	section := r.PathValue("section")
 	docs, err := repository.ListSubjects(section)
 	if err != nil {
