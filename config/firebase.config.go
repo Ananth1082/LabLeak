@@ -18,7 +18,7 @@ var Firebase *firebaseClient = new(firebaseClient)
 
 func init() {
 	var err error
-	opt := option.WithCredentialsFile("../env/firebase.config.json")
+	opt := option.WithCredentialsFile("../main/firebase.config.json")
 	Firebase.app, err = firebase.NewApp(context.Background(), nil, opt)
 	if err != nil {
 		panic("Error initializing app")
