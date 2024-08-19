@@ -7,19 +7,6 @@ import (
 	"github.com/Ananth1082/LabLeak/repository"
 )
 
-func GetManual(w http.ResponseWriter, r *http.Request) {
-	section := r.PathValue("section")
-	subject := r.PathValue("subject")
-	manual := r.PathValue("manual")
-	manualContent, err := repository.GetManual(section, subject, manual)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Invalid details.."))
-	}
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(manualContent))
-}
-
 func CreateManual(w http.ResponseWriter, r *http.Request) {
 	section := r.PathValue("section")
 	subject := r.PathValue("subject")
