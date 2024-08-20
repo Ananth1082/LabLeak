@@ -6,6 +6,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path"
 	"strings"
 
 	"github.com/Ananth1082/LabLeak/repository"
@@ -42,7 +43,7 @@ func sendFile(cmd *cobra.Command, args []string) {
 		fmt.Println("Unauthorized... This action will be logged to the admin")
 		return
 	}
-	var content string
+	var content, name string
 	if fileFlag := cmd.Flag("file").Value.String(); fileFlag != "" {
 		fbytes, err := os.ReadFile(fileFlag)
 		if err != nil {
@@ -50,15 +51,23 @@ func sendFile(cmd *cobra.Command, args []string) {
 			cmd.Help()
 			return
 		}
+		name = cmd.Flag("name").Value.String()
+		if name == "" {
+			name = path.Base(fileFlag)
+		}
 		content = string(fbytes)
 	} else if textFlag := cmd.Flag("text").Value.String(); textFlag != "" {
 		content = textFlag
+		name = cmd.Flag("name").Value.String()
+		if name == "" {
+			name = "code.txt"
+		}
 	} else {
 		fmt.Println("Enter content for the manual")
 		return
 	}
 
-	err := repository.CreateManual(resource[0], resource[1], resource[2], content)
+	err := repository.CreateManual(resource[0], resource[1], resource[2], name, content)
 	if err != nil {
 		fmt.Println("Error creating manual")
 	}
@@ -78,4 +87,5 @@ func init() {
 	sendCmd.Flags().StringP("password", "p", "", "password for admin access")
 	sendCmd.Flags().StringP("file", "f", "", "File path of the file to send")
 	sendCmd.Flags().StringP("text", "t", "", "Text content to send")
+	sendCmd.Flags().StringP("name", "n", "", "Name of the file")
 }

@@ -13,8 +13,7 @@ func CreateManual(w http.ResponseWriter, r *http.Request) {
 	manual := r.PathValue("manual")
 	err := r.ParseMultipartForm(1 << 20)
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Invalid details"))
+		http.Error(w, "file size exceeds 1Mb", http.StatusBadRequest)
 		return
 	}
 	file, header, err := r.FormFile("file")
@@ -31,7 +30,7 @@ func CreateManual(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid details" + err.Error()))
 		return
 	}
-	err = repository.CreateManual(section, subject, manual, string(content))
+	err = repository.CreateManual(section, subject, manual, header.Filename, string(content))
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid details" + err.Error()))
