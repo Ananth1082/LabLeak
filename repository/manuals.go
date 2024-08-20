@@ -8,24 +8,27 @@ import (
 	"github.com/Ananth1082/LabLeak/config"
 )
 
-func GetManual(section, subject, manual string) (string, error) {
+func GetManual(section, subject, manual string) (string, string, error) {
 	ctx := context.Background()
 	docSnap, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Get(ctx)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
-	data, err := docSnap.DataAt("content")
-	if err != nil {
-		return "", err
+	data := docSnap.Data()
+
+	manualContent := data["content"].(string)
+	name, ok := data["name"].(string)
+	if !ok {
+		name = "code.txt"
 	}
-	manualContent := data.(string)
-	return manualContent, nil
+
+	return manualContent, name, nil
 }
 
-func CreateManual(section, subject, manual, content string) error {
+func CreateManual(section, subject, manual, fileName, content string) error {
 	content = strings.Trim(content, "\n") + "\n"
 	ctx := context.Background()
-	_, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Create(ctx, map[string]string{"content": content})
+	_, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Create(ctx, map[string]string{"content": content, "name": fileName})
 	if err != nil {
 		return err
 	}

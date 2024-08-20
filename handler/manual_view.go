@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/Ananth1082/LabLeak/repository"
+	"github.com/Ananth1082/LabLeak/utils"
 )
 
 var HTMLString = ""
@@ -26,7 +27,7 @@ func GetManual(w http.ResponseWriter, r *http.Request) {
 	subject := r.PathValue("subject")
 	manual := r.PathValue("manual")
 	userType := r.Header.Get("user-agent")
-	manualContent, err := repository.GetManual(section, subject, manual)
+	manualContent, fileName, err := repository.GetManual(section, subject, manual)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid details..\n"))
@@ -39,6 +40,7 @@ func GetManual(w http.ResponseWriter, r *http.Request) {
 	} else {
 		w.Header().Set("Content-Type", "text/html")
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintf(w, HTMLString, manual, manual, manualContent)
+		_, ext := utils.GetNameAndExt(fileName)
+		fmt.Fprintf(w, HTMLString, ext, manual, fileName, ext, manualContent)
 	}
 }

@@ -29,7 +29,7 @@ func findManual(cmd *cobra.Command, args []string) {
 		fmt.Println("Incorrect resource path <section>/<subject>/<manual name>")
 		return
 	}
-	content, err := repository.GetManual(resorces[0], resorces[1], resorces[2])
+	content, _, err := repository.GetManual(resorces[0], resorces[1], resorces[2])
 	if err != nil {
 		fmt.Println("Invalid resouce path- Resource path doesnt exist")
 		return
