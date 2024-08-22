@@ -19,11 +19,11 @@ type file struct {
 	Blob     []byte
 }
 
-func SendFile(fileContent []byte, fileName string) error {
+func SendFile(fileContent []byte, fileName string) (string, error) {
 	size := int64(len(fileContent))
 	doc, err := initPhoto(fileName, size)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	packetsCount := int(size / PACKET_SIZE)
@@ -39,10 +39,10 @@ func SendFile(fileContent []byte, fileName string) error {
 		packet := fileContent[start:end]
 		err := sendPacket(doc, packet, i+1)
 		if err != nil {
-			return err
+			return "", err
 		}
 	}
-	return nil
+	return doc.ID, nil
 }
 
 func GetFile(fileID string) (*file, error) {
