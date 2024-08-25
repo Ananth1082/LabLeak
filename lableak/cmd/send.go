@@ -67,7 +67,7 @@ func sendFile(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	err := repository.CreateManual(resource[0], resource[1], resource[2], name, content)
+	err := repository.CreateManual(resource[0], resource[1], resource[2], name, content, []string{})
 	if err != nil {
 		fmt.Println("Error creating manual")
 	}
