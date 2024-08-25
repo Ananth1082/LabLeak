@@ -12,18 +12,18 @@ import (
 )
 
 const PACKET_SIZE = 900 << 10 // 900 KB
-type file struct {
+type File struct {
 	Filename string `firestore:"name"`
 	Size     int64  `firestore:"size"`
 	Ext      string `firestore:"ext"`
 	Blob     []byte
 }
 
-func SendFile(fileContent []byte, fileName string) error {
+func SendFile(fileContent []byte, fileName string) (string, error) {
 	size := int64(len(fileContent))
 	doc, err := initPhoto(fileName, size)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	packetsCount := int(size / PACKET_SIZE)
@@ -39,13 +39,13 @@ func SendFile(fileContent []byte, fileName string) error {
 		packet := fileContent[start:end]
 		err := sendPacket(doc, packet, i+1)
 		if err != nil {
-			return err
+			return "", err
 		}
 	}
-	return nil
+	return doc.ID, nil
 }
 
-func GetFile(fileID string) (*file, error) {
+func GetFile(fileID string) (*File, error) {
 	ctx := context.Background()
 
 	// Reference to the main document
@@ -54,7 +54,7 @@ func GetFile(fileID string) (*file, error) {
 	if err != nil {
 		return nil, err
 	}
-	photo := new(file)
+	photo := new(File)
 	err = data.DataTo(photo)
 	if err != nil {
 		return nil, err

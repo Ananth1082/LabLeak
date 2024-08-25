@@ -2,17 +2,18 @@ package repository
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"cloud.google.com/go/firestore"
 	"github.com/Ananth1082/LabLeak/config"
 )
 
-func GetManual(section, subject, manual string) (string, string, error) {
+func GetManual(section, subject, manual string) (string, string, []File, error) {
 	ctx := context.Background()
 	docSnap, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Get(ctx)
 	if err != nil {
-		return "", "", err
+		return "", "", nil, err
 	}
 	data := docSnap.Data()
 
@@ -21,14 +22,24 @@ func GetManual(section, subject, manual string) (string, string, error) {
 	if !ok {
 		name = "code.txt"
 	}
-
-	return manualContent, name, nil
+	ids, _ := data["attachments"].([]interface{})
+	attachements := make([]File, 0, len(ids))
+	for _, id := range ids {
+		idstr := id.(string)
+		file, err := GetFile(idstr)
+		if err != nil {
+			fmt.Println("Error accessing image, ID: ", idstr)
+			continue
+		}
+		attachements = append(attachements, *file)
+	}
+	return manualContent, name, attachements, nil
 }
 
-func CreateManual(section, subject, manual, fileName, content string) error {
+func CreateManual(section, subject, manual, fileName, content string, attachmentIDs []string) error {
 	content = strings.Trim(content, "\n") + "\n"
 	ctx := context.Background()
-	_, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Create(ctx, map[string]string{"content": content, "name": fileName})
+	_, err := config.Firebase.Fs.Collection("sections").Doc(section).Collection("subjects").Doc(subject).Collection("manuals").Doc(manual).Create(ctx, map[string]interface{}{"content": content, "name": fileName, "attachments": attachmentIDs})
 	if err != nil {
 		return err
 	}

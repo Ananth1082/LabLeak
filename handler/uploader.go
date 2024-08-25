@@ -32,7 +32,7 @@ func UploadPhotos(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Send the file to be stored in the database
-	err = repository.SendFile(fileBytes, header.Filename)
+	id, err := repository.SendFile(fileBytes, header.Filename)
 	if err != nil {
 		log.Println("Error uploading image: ", err)
 		http.Error(w, "Error uploading image", http.StatusInternalServerError)
@@ -41,7 +41,7 @@ func UploadPhotos(w http.ResponseWriter, r *http.Request) {
 
 	// Respond to the client
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Successfully uploaded %s, file size: %d bytes", header.Filename, header.Size)
+	fmt.Fprintf(w, "Successfully uploaded %s, file size: %d bytes, file_id: %s", header.Filename, header.Size, id)
 }
 
 func GetPhoto(w http.ResponseWriter, r *http.Request) {
