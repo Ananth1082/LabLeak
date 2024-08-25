@@ -20,9 +20,8 @@ for arg in "${@:4}"; do
 done
 
 # Execute curl command
-eval curl -X POST "http://localhost:8080/$API_PATH" \
-    -H "Authorization: Bearer $AUTH_TOKEN"
+eval curl -X POST "https://localhost:8080/$API_PATH" \
     -H "Content-Type: multipart/form-data" \
     -F "file=@$FILE_PATH" \
-    #$attachments \
-    
+    $attachments \
+    -H "Authorization: Bearer $AUTH_TOKEN"
