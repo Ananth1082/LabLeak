@@ -23,3 +23,5 @@ An admin can upload documents to the server and these documents can be access by
 
 ### Lab Leak CLI
 ![Screenshot 2024-08-11 171407](https://github.com/user-attachments/assets/c20a75f0-8402-418b-9c74-5e99ec1f9f73)
+
+the cli can be used to apply CRUD operations easily
